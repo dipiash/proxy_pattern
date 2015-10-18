@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="index.css">
+
+  <title>Proxy_pattern</title>
+</head>
+<body>
+  <div class="left">
+    <form action="/" id="get" class="login_form">
+      <input type="text" name="id" placeholder="User id" id="get_id" class="login_form__input">
+      <button type="button" id="getInfo" class="login_form__btn">Получить информацию о пользователе</button>
+    </form>
+
+    <form action="/" id="patch" class="login_form">
+      <input type="text" name="id" placeholder="User id" id="patch_id" class="login_form__input">
+      <input type="text" name="name" placeholder="User name" class="login_form__input">
+      <input type="text" name="login" placeholder="User login" class="login_form__input">
+      <button type="button" id="updInfo" class="login_form__btn">Обновить информацию о пользователе</button>
+    </form>
+
+    <form action="/" id="invalidate" class="login_form">
+      <input type="text" name="id" placeholder="User id" id="invalid" class="login_form__input">
+      <button type="button" id="invalidateInfo" class="login_form__btn">Инвалидировать информацию о пользователе в кэше</button>
+    </form>
+  </div>
+
+  <div class="console right">
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
