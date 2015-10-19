@@ -1,0 +1,23 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+.contaner {
+  padding: 30px;
+  background: #eee;
+}
+
+.container__img {
+  padding: 10px;
+}
+
+.img__item {
+  width: 100%;
+  margin-top: 30px;
+  box-shadow: 1px 1px solid #ccc;
+}
+
+.img__item:first-child {
+  margin-top: 0;
+  box-shadow: 1px 1px 10px 0px rgba(135,119,135,1);
+}
