@@ -1,4 +1,4 @@
-# Доклад по proxy design pattern
+# Доклад по proxy design pattern (Proxy == Заместитель == Surrogate)
 
 ### Назначение
 Это паттерн, который структурирует объекты. Это виртуальный(суррогатный) объект
@@ -12,6 +12,13 @@
 ### Диаграмма класов
 
 ![Proxy_patt.gif](/img/Proxy_patt.gif)
+
+### Применение
+- Удаленный заместитель
+- Виртуальный заместитель
+- Защищающий заместитель
+- «Умная» ссылка
+
 
 ### Дополнительные ссылки
 1. [Lazy Loading (include point of proxy design pattern)](https://khousuylong.wordpress.com/2009/03/24/lazy-loading/)
