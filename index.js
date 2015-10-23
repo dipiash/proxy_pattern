@@ -2,7 +2,9 @@
 // (в БД)
 
 ;(function() {
+
   var User = {
+    // кэшируем информацию о пользователе
     cacheUserInfo:  function (uid, info) {
                       console.log("Кэшируем информацию в Localstorage");
 
@@ -12,15 +14,19 @@
 
                       return;
                     },
+    // получаем информацию о пользователе
     getUserInfo:  function (uid) {
                     var info = localStorage.getItem('user_id_' + uid),
                     tmp_this = this;
 
                     if (info) { // если есть в localstorage
                       console.log("Получена информация из кэша: " + info);
+
+                      // возвращаем информацию о пользователе
                       return info;
                     }
 
+                    // запрос в БД идет только в том случае, если нет кэша
                     console.log("Получаем информацию из БД")
                     $.ajax({
                       type: 'GET',
@@ -30,12 +36,14 @@
                         info = JSON.stringify(data);
                         console.log("Получена информация из БД: " + info);
 
+                        // кэшируем полученную информацию в localStorage
                         tmp_this.cacheUserInfo(data.id, info);
 
                         return info;
                       }
                     });
                   },
+    // обновляемя информацию о пользователе
     updateUserInfo: function(uid, data) {
                       var tmp_this = this;
                       $.ajax({
@@ -47,6 +55,9 @@
                           info = JSON.stringify(data);
                           console.log("Обновлена информация в БД: " + info);
 
+                          // в случае успешного ответа, кэшируем информацию
+                          // о пользователе, чтобы не делать лишние запросы, и
+                          // не поулчать устаревшую информацию
                           tmp_this.cacheUserInfo(data.id, info);
 
                           console.log("Обновлен кэш в localStorage");
@@ -55,20 +66,23 @@
                         }
                       });
                     },
+    // инвалидируем кэш
     invalidateInfo: function (uid) {
-                      var tmp_this = this;
-                      if (uid == 0) {
+                      if (!uid) { // игвалидация всего кэша
                         localStorage.clear();
                         console.log("Инвалидирован весь кэш.");
                         return;
                       }
 
+                      // инвалидация кэша, только для указанного пользователя
                       localStorage.removeItem("user_id_" + uid);
                       console.log("Инвалидирован кэш для указнного пользователя.");
                       return;
                     }
   };
 
+
+  //Обработчики --------------------------------------------
 
   $(document).on('click', '#getInfo', function(e) {
     User.getUserInfo( $('#get_id').val() );
@@ -83,4 +97,5 @@
     var uid = $('#invalid').val() || 0;
     User.invalidateInfo( uid );
   })
+
 })();
