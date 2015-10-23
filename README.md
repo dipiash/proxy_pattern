@@ -8,6 +8,15 @@
 ### Представлены примеры
 1. [Удаленный заместитель](/index.js)
 2. [Виртуальный заместитель](/img_load.js)
+3. ["Умная" ссылка](/redis_user_class.php)
+```
+  /**
+   * Очистить список пользователей, которые не активны более 10 минут.
+   */
+  public function removeOldUsersOnline() {
+    $this->redis->zRemRangeByScore('user:online', - time(), time() - 10*60);
+  }
+```
 
 ### Диаграмма класов
 
