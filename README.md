@@ -45,6 +45,7 @@
 3. [The Proxy Pattern in Ruby](http://www.fngtps.com/2006/the-proxy-pattern-in-ruby/)
 4. [List: design-patterns-in-ruby](https://github.com/nslocum/design-patterns-in-ruby#proxy)
 5. [The Proxy Pattern](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#proxypatternjquery)
+6. [Обзор механизмов сборки мусора](http://eax.me/garbage-collection/)
 
 ### Чтобы посмотреть 1 пример
 1. npm install -g json-server --save-dev
