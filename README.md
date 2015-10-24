@@ -5,19 +5,6 @@
  другого - настоящего объекта. Применение паттерна позволяет контролировать
  доступ к настоящему объекту.
 
-### Представлены примеры
-1. [Удаленный заместитель](/index.js)
-2. [Виртуальный заместитель](/img_load.js)
-3. ["Умная" ссылка](/redis_user_class.php)
-```
-  /**
-   * Очистить список пользователей, которые не активны более 10 минут.
-   */
-  public function removeOldUsersOnline() {
-    $this->redis->zRemRangeByScore('user:online', - time(), time() - 10*60);
-  }
-```
-
 ### Диаграмма класов
 
 ![Proxy_patt.gif](/img/Proxy_patt.gif)
@@ -38,6 +25,19 @@
 - Виртуальный заместитель
 - Защищающий заместитель
 - «Умная» ссылка
+
+### Представлены примеры
+1. [Удаленный заместитель](/index.js)
+2. [Виртуальный заместитель](/img_load.js)
+3. ["Умная" ссылка](/redis_user_class.php)
+```
+  /**
+   * Очистить список пользователей, которые не активны более 10 минут.
+   */
+  public function removeOldUsersOnline() {
+    $this->redis->zRemRangeByScore('user:online', - time(), time() - 10*60);
+  }
+```
 
 ### Дополнительные ссылки
 1. [Lazy Loading (include point of proxy design pattern)](https://khousuylong.wordpress.com/2009/03/24/lazy-loading/)
