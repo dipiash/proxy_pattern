@@ -1,4 +1,4 @@
-// virtual deputy. Heavy objects are loaded on demand
+// Proxy. Heavy objects are loaded on demand
 
 ;(function() {
 
