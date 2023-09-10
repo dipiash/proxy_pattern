@@ -4,7 +4,7 @@
         private $redis = createRedisConnect();
 
         /**
-         * Установить пользователя онлайн.
+         * Mark the user online
          *
          * @param $idUser
          */
@@ -13,7 +13,7 @@
         }
 
         /**
-         * Получить кол-во пользователей онлайн.
+         * Get count of users online
          *
          * @return int
          */
@@ -24,7 +24,7 @@
         }
 
         /**
-         * Получить список пользователей онлайн.
+         * Get list of users online
          *
          * @return array
          */
@@ -35,7 +35,7 @@
         }
 
         /**
-         * Очистить список пользователей, которые не активны более 10 минут.
+         * Clear users list, which are inactive for more than 10 minutes.
          */
         public function removeOldUsersOnline() {
             $this->redis->zRemRangeByScore('user:online', -time(), time()- 10*60);
