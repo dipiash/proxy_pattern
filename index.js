@@ -1,49 +1,47 @@
-// Удаленный заместитель. Предоставляем локальный объект вместо удаленного
-// (в БД)
+// Proxy. We provide a local object instead of a remote one (in the database)
 
 ;(function() {
 
   var User = {
-    // кэшируем информацию о пользователе
+    // caching information about user
     cacheUserInfo:  function (uid, info) {
-                      console.log("Кэшируем информацию в Localstorage");
+                      console.log("Caching information in Localstorage");
 
                       localStorage.setItem("user_id_" + uid, info);
 
-                      console.log("Информация закеширована");
+                      console.log("Information was cached");
 
                       return;
                     },
-    // получаем информацию о пользователе
+    // Get info about user
     getUserInfo:  function (uid) {
                     var info = localStorage.getItem('user_id_' + uid),
                     tmp_this = this;
 
-                    if (info) { // если есть в localstorage
-                      console.log("Получена информация из кэша: " + info);
+                    if (info) { // if contains in localstorage
+                      console.log("Get info from cache: " + info);
 
-                      // возвращаем информацию о пользователе
                       return info;
                     }
 
-                    // запрос в БД идет только в том случае, если нет кэша
-                    console.log("Получаем информацию из БД")
+                    // request to the database is made only if there is no cache
+                    console.log("Get info from DB")
                     $.ajax({
                       type: 'GET',
                       url: 'http://localhost:3000/users/' + uid,
                       dataType: 'json',
                       success: function(data) {
                         info = JSON.stringify(data);
-                        console.log("Получена информация из БД: " + info);
+                        console.log("Information was received: " + info);
 
-                        // кэшируем полученную информацию в localStorage
+                        // cache information in localStorage
                         tmp_this.cacheUserInfo(data.id, info);
 
                         return info;
                       }
                     });
                   },
-    // обновляемя информацию о пользователе
+    // update information about user
     updateUserInfo: function(uid, data) {
                       var tmp_this = this;
                       $.ajax({
@@ -53,36 +51,35 @@
                         dataType: 'json',
                         success: function(data) {
                           info = JSON.stringify(data);
-                          console.log("Обновлена информация в БД: " + info);
+                          console.log("Infomation in DB was updated: " + info);
 
-                          // в случае успешного ответа, кэшируем информацию
-                          // о пользователе, чтобы не делать лишние запросы, и
-                          // не поулчать устаревшую информацию
+                          // if the response is successful, cache the information
+                          // about the user, so as not to make unnecessary requests, and
+                          // do not retrieve outdated information
                           tmp_this.cacheUserInfo(data.id, info);
 
-                          console.log("Обновлен кэш в localStorage");
+                          console.log("Cache in localStorage was updated");
 
                           return info;
                         }
                       });
                     },
-    // инвалидируем кэш
+    // Invalidate cache
     invalidateInfo: function (uid) {
-                      if (!uid) { // игвалидация всего кэша
+                      if (!uid) { // Invalidate all cache
                         localStorage.clear();
-                        console.log("Инвалидирован весь кэш.");
+                        console.log("Invalidate all cache");
                         return;
                       }
 
-                      // инвалидация кэша, только для указанного пользователя
                       localStorage.removeItem("user_id_" + uid);
-                      console.log("Инвалидирован кэш для указнного пользователя.");
+                      console.log("Invalidate the cache for the specified user.");
                       return;
                     }
   };
 
 
-  //Обработчики --------------------------------------------
+  // Handlers --------------------------------------------
 
   $(document).on('click', '#getInfo', function(e) {
     User.getUserInfo( $('#get_id').val() );
